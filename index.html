@@ -37,8 +37,7 @@
     deck.carto.setDefaultCredentials({
       apiBaseUrl: "https://gcp-us-east1.api.carto.com",
       apiVersion: deck.carto.API_VERSIONS.V3,
-      accessToken:
-        "eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbG5yZGNpdTMiLCJqdGkiOiI4MzhjM2MzOSJ9.6vqxzhFxK0fTrXPVKXHlyyufrbOnJsXu5ucxMkMzAbw",
+      // accessToken:"eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbG5yZGNpdTMiLCJqdGkiOiI4MzhjM2MzOSJ9.6vqxzhFxK0fTrXPVKXHlyyufrbOnJsXu5ucxMkMzAbw",
     });
 
 
@@ -51,6 +50,13 @@
             format: deck.carto.FORMATS.GEOJSON
           });
           console.log(data)
+
+          // const data =  await deck.carto.fetchLayerData({
+          //   type: deck.carto.MAP_TYPES.TABLE,
+          //   connection: 'redkoltigis',
+          //   source: 'gis_koltiva.cocoatrace_nestle.gis_basic',
+          // });
+          // console.log(data)
     });
 
 
