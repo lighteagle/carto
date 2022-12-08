@@ -1,68 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
 
-<head>
-  <meta charset="utf-8">
-  <title>CARTO 3 + Mapbox GL JS - Hello World</title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
-  <script src="https://unpkg.com/deck.gl@^8.8.0/dist.min.js"></script>
-  <script src="https://unpkg.com/@deck.gl/carto@^8.8.0/dist.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
+    <!-- carto -->
+    <script src="https://unpkg.com/deck.gl@^8.8.0/dist.min.js"></script>
+    <script src="https://unpkg.com/@deck.gl/carto@^8.8.0/dist.min.js"></script>
+  </head>
+  <body style="width: 100wh; height: 100vh; margin: 0; padding: 0">
+    <div
+      id="map"
+      style="width: 100wh; height: 100vh; margin: 0; padding: 0"
+    ></div>
+    <script>
+      mapboxgl.accessToken =
+        "pk.eyJ1Ijoia29sdGlnaXMiLCJhIjoiY2xhYzYyNm9xMDc5czNvbWhjMTNrODVkMyJ9.2Ni9VMsNgMf3vj67B_l2zA";
+      var map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/dark-v11",
+        center: [-5, 8], // starting position
+        zoom: 6, // starting zoom
+      });
 
-    #map {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
-</head>
 
-<body>
-  <div id="map"></div>
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2FydG9kYmluYyIsImEiOiJja202bHN2OXMwcGYzMnFrbmNkMzVwMG5rIn0.Zb3J4JTdJS-oYNXlR3nvnQ';
-    var map = new mapboxgl.Map({
-      container: 'map', 
-      style: 'mapbox://styles/mapbox/light-v10', 
-      center: [0, 0], 
-      zoom: 1 
-    });
 
-    
+
     deck.carto.setDefaultCredentials({
       apiBaseUrl: "https://gcp-us-east1.api.carto.com",
       apiVersion: deck.carto.API_VERSIONS.V3,
-      accessToken:'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbG5yZGNpdTMiLCJqdGkiOiI4MzhjM2MzOSJ9.6vqxzhFxK0fTrXPVKXHlyyufrbOnJsXu5ucxMkMzAbw'
+      accessToken:
+        "eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbG5yZGNpdTMiLCJqdGkiOiI4MzhjM2MzOSJ9.6vqxzhFxK0fTrXPVKXHlyyufrbOnJsXu5ucxMkMzAbw",
     });
+
 
     map.on('load', async () => {
           // Fetch Data from CARTO
           const { data } =  await deck.carto.fetchLayerData({
             type: deck.carto.MAP_TYPES.QUERY,
-            source: `SELECT geom FROM postgres.public.v_farm_polygon`,
-            connection: 'postgre',
+            source: `select polygon as geom from gis_koltiva.cocoatrace_nestle.gis_basic`,
+            connection: 'redkoltigis',
             format: deck.carto.FORMATS.GEOJSON
           });
           console.log(data)
     });
 
+
+
+
+
+
+
+
+
     // deck.carto.setDefaultCredentials({
     //   apiBaseUrl: 'https://gcp-us-east1.api.carto.com',
     //   apiVersion: deck.carto.API_VERSIONS.V3,
-    //   accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbG5yZGNpdTMiLCJqdGkiOiI4MzhjM2MzOSJ9.6vqxzhFxK0fTrXPVKXHlyyufrbOnJsXu5ucxMkMzAbw'
+    //   accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbHFlM3p3Z3UiLCJqdGkiOiI1YjI0OWE2ZCJ9.Y7zB30NJFzq5fPv8W5nkoH5lPXFWQP0uywDtqUg8y8c'
     // });
-    // // deck.carto.setDefaultCredentials({
-    // //   apiBaseUrl: 'https://gcp-us-east1.api.carto.com',
-    // //   apiVersion: deck.carto.API_VERSIONS.V3,
-    // //   accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfbHFlM3p3Z3UiLCJqdGkiOiI1YjI0OWE2ZCJ9.Y7zB30NJFzq5fPv8W5nkoH5lPXFWQP0uywDtqUg8y8c'
-    // // });
 
     // map.on('load', async () => {
     //   // Fetch Data from CARTO
@@ -89,9 +92,12 @@
     //     }
     //   });
     // });
-
-  </script>
-
-</body>
-
+    </script>
+  </body>
 </html>
+
+
+<!-- 
+
+  SELECT * FROM carto_demo_data.demo_tables.retail_stores WHERE storetype = $2 AND revenue > $1...
+ -->
